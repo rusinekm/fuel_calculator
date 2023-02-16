@@ -3,15 +3,7 @@ defmodule FuelCalc do
   Documentation for `FuelCalc`.
   """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> FuelCalc.hello()
-      :world
-
-  """
+  @spec find_fuel(any, any) :: {:error, <<_::304>> | list} | {:ok, number}
   def find_fuel(mass, coordinates) when is_list(coordinates) do
    counted_values = Enum.map(coordinates, fn coordinate -> find_function_and_calculate(coordinate, mass) end)
    counted_values
@@ -35,15 +27,15 @@ defmodule FuelCalc do
   end
 
 
-  def find_function_and_calculate({operation, gravity}, mass) when operation in [:land, :launch] do
+  defp find_function_and_calculate({operation, gravity}, mass) when operation in [:land, :launch] do
     apply(LaunchLandCalculator, operation, [mass, gravity])
   end
 
-  def find_function_and_calculate({_operation, _gravity}, _mass)  do
+  defp find_function_and_calculate({_operation, _gravity}, _mass)  do
     {:error, "operation used is not launch of land operation"}
   end
 
-  def find_function_and_calculate(_, _) do
+  defp find_function_and_calculate(_, _) do
     {:error, "coordinate is not a tuple"}
   end
 
