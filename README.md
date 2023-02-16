@@ -1,21 +1,3 @@
-# FuelCalc
+This app calculates required fuel needed to launch from, or land on a planet depending on it's gravity
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `fuel_calc` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:fuel_calc, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/fuel_calc>.
-
+To use this app please run `iex -S mix` and then run FuelCalc.find_fuel(mass, list_of_coordinates)
