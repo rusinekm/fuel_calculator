@@ -1,7 +1,10 @@
 defmodule FuelCalc do
   @moduledoc """
-  Documentation for `FuelCalc`.
-  """
+ This module is general module for finding fuel needed.any()
+ When unavailable operation is given error is returned instead
+ Should number of available operations were to be increased, similar functions shouls be added to LaunchLandCalculator (with possible namechange of said module)
+ find_fuel accepts parameters of mass and array of tuples containign operation to be performes as an atom, and gravity as a value
+ """
 
   @spec find_fuel(any, any) :: {:error, <<_::304>> | list} | {:ok, number}
   def find_fuel(mass, coordinates) when is_list(coordinates) do
@@ -27,12 +30,12 @@ defmodule FuelCalc do
   end
 
 
-  defp find_function_and_calculate({operation, gravity}, mass) when operation in [:land, :launch] do
-    apply(LaunchLandCalculator, operation, [mass, gravity])
-  end
-
-  defp find_function_and_calculate({_operation, _gravity}, _mass)  do
-    {:error, "operation used is not launch of land operation"}
+  defp find_function_and_calculate({operation, gravity}, mass) do
+    if Keyword.has_key?(LaunchLandCalculator.__info__(:functions), operation) do
+      apply(LaunchLandCalculator, operation, [mass, gravity])
+    else
+      {:error, "operation used (#{operation}) is not one of available operations"}
+    end
   end
 
   defp find_function_and_calculate(_, _) do

@@ -18,17 +18,21 @@ defmodule FuelCalcTest do
   end
 
   test "returns error when data is not presented as tuples" do
-    {status, _value} = FuelCalc.find_fuel("1", [:launch, "3.0"])
+    {status, message} = FuelCalc.find_fuel("1", [:launch, "3.0"])
     assert status == :error
+    assert message == ["coordinate is not a tuple", "coordinate is not a tuple"]
+
   end
 
   test "returns error when incorrect data is presented" do
-    {status, _value} = FuelCalc.find_fuel("1", "some_data")
+    {status, message} = FuelCalc.find_fuel("1", "some_data")
     assert status == :error
+    assert message == "incorrect list was given as parameters"
   end
 
   test "returns error when other operations are to be used" do
-    {status, _value} = FuelCalc.find_fuel("1", {:float, "3.0"})
+    {status, message} = FuelCalc.find_fuel("1", [{:float, "3.0"}])
     assert status == :error
+    assert message == ["operation used (float) is not one of available operations"]
   end
 end
